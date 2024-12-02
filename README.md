@@ -2,7 +2,7 @@
 유니티 C# 언어변경
 
 ## 유니티에서 여러 언어에 대한 설정을 하고싶을때 사용한 방법
-
+### 1
     using System.Collections.Generic;
     using TMPro;
     using UnityEngine;
@@ -76,25 +76,74 @@
         private void SettingLanguage(EnumLanguage language)
         {
             optionList.Clear();
-            if (language == EnumLanguage.eKOREAN)
-            {
-                PlayerPrefs.SetString("Language", "KOREAN");
+            if (language == EnumLanguage.eKORE출
+            return returnWord;
+        }
+    }
 
-                //언어들 프리팹 설정 (한글)
-                
-            }
-            else if (language == EnumLanguage.eENGLISH)
-            {
-                PlayerPrefs.SetString("Language", "ENGLISH");
 
-                //언어들 프리팹 설정 (영어)
+### 2 
+    using System;
+    using TMPro;
+    using UnityEngine;
+    using UnityEngine.UI;
+
+    public class TextChanger : MonoBehaviour
+    {
+        [SerializeField]
+        private string wordForDebug;
+    
+        private void Start()
+        {
+            ChangeLanguage();
+        }
+    
+        private void OnEnable()
+        {
+            TextChangerEventManager.OnLanguageChangedEvent += ChangeLanguage;
+        }
+    
+        private void OnDisable()
+        {
+            TextChangerEventManager.OnLanguageChangedEvent -= ChangeLanguage;
+        }
+    
+        private void ChangeLanguage()
+        {
+            // PlayerPref에 저장된 오브젝트 이름에 대응하는 텍스트 획득
+            wordForDebug = LanguageManager.S.ReturnWord(transform.gameObject.name);
+    
+            if (wordForDebug != "")
+            {
+                Text textComponent = GetComponent<Text>();
+                if (textComponent != null)
+                {
+                    textComponent.text = wordForDebug;
+                }
+    
+                TextMeshProUGUI tmpUguiComponent = GetComponent<TextMeshProUGUI>();
+                if (tmpUguiComponent != null)
+                {
+                    tmpUguiComponent.text = wordForDebug;
+                }
+    
+                TextMeshPro tmpComponent = GetComponent<TextMeshPro>();
+                if (tmpComponent != null)
+                {
+                    tmpComponent.text = wordForDebug;
+                }
             }
         }
+    }
 
-        public string ReturnWord(string word)
+
+    public static class TextChangerEventManager
+    {
+        public static event Action OnLanguageChangedEvent;
+
+        public static void TriggerApplyLanguage()
         {
-            returnWord = PlayerPrefs.GetString(word);
-            return returnWord;
+            OnLanguageChangedEvent?.Invoke();
         }
     }
 
