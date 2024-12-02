@@ -94,10 +94,6 @@
         public string ReturnWord(string word)
         {
             returnWord = PlayerPrefs.GetString(word);
-            if (returnWord == "Position")
-            {
-                Debug.Log($"{returnWord} 니 잘 오네?");
-            }
             return returnWord;
         }
     }
