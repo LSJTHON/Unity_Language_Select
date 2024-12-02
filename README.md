@@ -3,12 +3,9 @@
 
 ## 유니티에서 여러 언어에 대한 설정을 하고싶을때 사용한 방법
 
-using System.Collections.Generic;
-using TMPro;
-using UnityEngine;
-
-namespace Maker
-{
+    using System.Collections.Generic;
+    using TMPro;
+    using UnityEngine;
 
     public enum EnumLanguage { eNULL, eKOREAN, eENGLISH };
 
@@ -104,5 +101,4 @@ namespace Maker
             return returnWord;
         }
     }
-}
 
